@@ -7,19 +7,19 @@
 var getElementsByClassName = function(className) {
   var results = [];
 
-  var nodes = function(element){
+  var nodes = function(element) {
 
-    if(element.classList && element.classList.contains(className)){
+    if (element.classList && element.classList.contains(className)) {
       results.push(element);
     }
 
-    if(element.children){
-      for(var i = 0; i < element.children.length; i++){
+    if (element.children) {
+      for (var i = 0; i < element.children.length; i++) {
         var child = element.children[i];
-          nodes(child);
+        nodes(child);
       }
     }
-  }
+  };
 
   nodes(document.body);
 

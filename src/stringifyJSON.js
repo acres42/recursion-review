@@ -7,58 +7,53 @@ var stringifyJSON = function(obj) {
   var arrOfVals = [];
   //function to determine the 'real' typeof object and array
 
-  var realType = function(obj){
+  var realType = function(obj) {
     var t = typeof(obj);
-    if(t === 'object'){
-      if(Array.isArray(obj)){
+    if (t === 'object') {
+      if (Array.isArray(obj)) {
         return 'array';
       } else {
         return 'object';
       }
     }
-  }
+  };
 
-  //handle primitives
-  if(typeof obj === 'number' || typeof obj === 'boolean'){
+  if (typeof obj === 'number' || typeof obj === 'boolean') {
     return obj.toString();
   }
 
-  if(obj === null){
+  if (obj === null) {
     return 'null';
   }
 
-  if(typeof obj === 'string'){
-    return  '"' + obj + '"';
+  if (typeof obj === 'string') {
+    return '"' + obj + '"';
   }
 
-
-  //handle arrays
-  if(realType(obj) === 'array'){
-    if(obj.length === 0){
+  if (realType(obj) === 'array') {
+    if (obj.length === 0) {
       return '[]';
-    }else {
-      obj.forEach(function(x){
+    } else {
+      obj.forEach(function(x) {
         arrOfVals.push(stringifyJSON(x));
       });
-      return '['+ arrOfVals +']';
+      return '[' + arrOfVals + ']';
     }
   }
 
-
-  //handle objects
-  if(realType(obj) === 'object'){
+  if (realType(obj) === 'object') {
     var objKeys = Object.keys(obj);
 
-    if(objKeys.length === 0){
+    if (objKeys.length === 0) {
       return '{}';
-     } else {
-      for (var key in obj){
-        if (typeof obj[key] !== 'function' && typeof obj[key] !== 'undefined'){
-        arrOfVals.push(stringifyJSON(key) + ":" + stringifyJSON(obj[key]));
+    } else {
+      for (var key in obj) {
+        if (typeof obj[key] !== 'function' && typeof obj[key] !== 'undefined') {
+          arrOfVals.push(stringifyJSON(key) + ':' + stringifyJSON(obj[key]));
         }
       }
     }
   }
-   return '{'+ arrOfVals +'}';
+  return '{' + arrOfVals + '}';
 
 };
